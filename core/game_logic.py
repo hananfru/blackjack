@@ -25,7 +25,6 @@ def dealer_play(deck, dealer):
 def player_play(deck, player):
     print(player["hand"])
     action = ask_player_action()
-    print(action)
     while action == 'H' and calculate_hand_value(player["hand"]) < 21:
         player["hand"].append(deck.pop())
         print(player["hand"])
