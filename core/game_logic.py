@@ -8,13 +8,20 @@ def deal_two_each(deck, player, dealer):
 
 def calculate_hand_value(hand):
     total = 0
+    aces = []
     for card in hand:
         if card["rank"].isdigit():
             total += int(card["rank"])
         elif card["rank"] != 'A':
             total += 10
         else:
+            aces.append(card)
+    for i in range(len(aces)):
+        if 21 - total -len(aces) + i > 10:
+            total += 11
+        else: 
             total+=1
+
     return total
 
 def dealer_play(deck, dealer):
