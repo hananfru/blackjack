@@ -1,8 +1,10 @@
 from core.player_io import *
 
 def deal_two_each(deck, player, dealer):
-    player["hand"] = [deck.pop(0), deck.pop(1)]
-    dealer["hand"] = [deck.pop(0), deck.pop(1)]
+    player["hand"] = [deck.pop(), deck.pop()]
+    dealer["hand"] = [deck.pop(), deck.pop()]
+    print(f"player-hand: {player["hand"]}")
+    print(f"dealer-hand: {dealer["hand"]}")
 
 def calculate_hand_value(hand):
     total = 0
@@ -16,8 +18,8 @@ def calculate_hand_value(hand):
     return total
 
 def dealer_play(deck, dealer):
-    while calculate_hand_value(dealer["hand"]) <= 17:
-        dealer["hand"].append(deck.pop(0))
+    while calculate_hand_value(dealer["hand"]) < 17:
+        dealer["hand"].append(deck.pop())
     return calculate_hand_value(dealer["hand"]) > 21
 
 def player_play(deck, player):
@@ -25,7 +27,7 @@ def player_play(deck, player):
     action = ask_player_action()
     print(action)
     while action == 'H' and calculate_hand_value(player["hand"]) < 21:
-        player["hand"].append(deck.pop(0))
+        player["hand"].append(deck.pop())
         print(player["hand"])
         if calculate_hand_value(player["hand"]) > 21:
             print("You Losed!")
@@ -44,7 +46,8 @@ def run_full_game(deck, player, dealer):
     deal_two_each(deck, player, dealer)
     player_play(deck, player)
     if calculate_hand_value(player["hand"]) > 21:
-        return
+        print("Game Over dealer won")
+        return 
     player_Won = dealer_play(deck, dealer)
     if(player_Won):
         print('Congratulations!')
